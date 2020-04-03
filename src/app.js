@@ -28,5 +28,6 @@ app.use('/api/users', require('./routes/users'));
 app.use('/api/notes', require('./routes/notes'));
 app.use('/api/investment', require('./routes/investment'));
 app.use('/api/expenses', require('./routes/expense'));
+app.use('/api/income', require('./routes/income'));
 
 module.exports = app;
