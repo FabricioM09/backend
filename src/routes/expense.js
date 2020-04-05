@@ -9,7 +9,7 @@ router.route('/')
 router.route('/allExpenses/:id')
     .get(getExpenses)
 
-router.route('/:id')
+router.route('/:id' )
     .get(getExpense)
     .put(updateExpense)
     .delete(deleteExpense)
