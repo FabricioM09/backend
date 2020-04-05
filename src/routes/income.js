@@ -4,8 +4,10 @@ const router = Router();
 const {getIncomes, createIncome, getIncome , updateIncome, deleteIncome} = require('../controllers/incomes.controller');
 
 router.route('/')
-    .get(getIncomes)
     .post(createIncome)
+
+router.route('/allIncome/:id')
+    .get(getIncomes)
 
 router.route('/:id')
     .get(getIncome)

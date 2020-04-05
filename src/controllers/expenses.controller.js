@@ -12,20 +12,21 @@ cloudinary.config({
 const fs = require('fs-extra');
 
 expenseCtrl.getExpenses = async (req, res) => {
-    const expenses = await Expense.find();
+    const expenses = await Expense.find({id_investment: req.params.id});
 
     res.status(200).json({expenses});
 }
 
 expenseCtrl.createExpense = async (req, res) => {
     const {expense_name, description, amount, id_investment, email_user } = req.body;
-    
+    let result 
     try {
-        const result = await cloudinary.v2.uploader.upload(req.file.path, {folder: 'backend/expenses'});
+        result = await cloudinary.v2.uploader.upload(req.file.path, {folder: 'backend/expenses'});
         const newExpense = new Expense({expense_name, description, amount, id_investment, email_user, url_image: result.url, public_id: result.public_id});
         await newExpense.save();
         await fs.unlink(req.file.path);
     }catch (error) {
+        await cloudinary.v2.uploader.destroy(result.public_id);
         await fs.unlink(req.file.path);
         return res.status(400).json({error})
     }
@@ -34,7 +35,7 @@ expenseCtrl.createExpense = async (req, res) => {
 }
 
 expenseCtrl.getExpense = async (req, res) => {
-    const expense = await Expense.findById(req.params.id , (err, expense) =>{
+    const expense = await Expense.findById(req.params.id, (err, expense) =>{
         if(err){
             return res.send({error: err}) 
         }else if(!expense){

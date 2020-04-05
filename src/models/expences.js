@@ -7,7 +7,7 @@ const expenseSchema = new Schema({
     },
     description: String,
     url_image: String,
-    amount: Number,
+    amount: Schema.Types.Decimal128,
     id_investment: String,
     email_user:{
         type: String,

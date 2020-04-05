@@ -28,7 +28,7 @@ incomeCtrl.createIncome = async (req, res) => {
 }
 
 incomeCtrl.getIncomes = async (req, res) => {
-    const income = await Income.find();
+    const income = await Income.find({id_investment: req.params.id});
 
     res.status(200).json({income});
 }
