@@ -1,7 +1,9 @@
 const jwt = require('jsonwebtoken');
 
 function verifyToken(req, res, next){
-    const token = req.headers['x-access-token'];
+    const token = req.headers.authorization;
+    let decoded
+
     if(!token){
         return res.status(401).json({
             auth: false,
@@ -9,10 +11,14 @@ function verifyToken(req, res, next){
         });
     }
 
-    const decoded = jwt.verify(token, process.env.mykeysecret);
+    const resulttoken = token.split(' ');
 
-    req.userId = decoded.id;
-
+    try {
+        decoded = jwt.verify(resulttoken[1], process.env.mykeysecret);
+    } catch (error) {
+        return res.status(400).json({error})
+    }
+    
     next();
 }
 

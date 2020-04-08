@@ -2,6 +2,7 @@ const userCtrl = {};
 
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
+const moment = require('moment');
 
 userCtrl.getUsers = async (req, res) => {
     const users = await User.find();
@@ -29,7 +30,7 @@ userCtrl.deleteUser = async (req, res) => {
 userCtrl.loginUser = async (req, res) => {
     const {email, password } = req.body;
     
-    const user = await User.findOne({email: email});
+    const user = await User.findOne({email});
     
     if(!user){
         return res.send({
@@ -45,7 +46,7 @@ userCtrl.loginUser = async (req, res) => {
     }
 
     const token = jwt.sign({id: user._id}, process.env.mykeysecret, {
-        expiresIn: 60 * 60 * 24
+        expiresIn: moment().add(14, 'days').unix() 
     }) 
 
     res.json({auth: true, token});
@@ -71,7 +72,7 @@ userCtrl.registerUser = async (req, res) => {
     
 
     const token =  jwt.sign({id: user._id}, process.env.mykeysecret, {
-        expiresIn: 60 * 60 * 24
+        expiresIn:  moment().add(14, 'days').unix()
     });
     
     res.json({auth: true, token});
