@@ -7,7 +7,7 @@ function verifyToken(req, res, next){
     if(!token){
         return res.status(401).json({
             auth: false,
-            message: 'No token provided'
+            message: 'No token provided.'
         });
     }
 
