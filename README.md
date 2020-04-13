@@ -2,5 +2,5 @@
 
 La api tiene como proposito llevar un control de las inversiones, gastos e ingresos de un usuario.
 
-##Tecnologías
+## Tecnologías
 - Nodejs (Framework express)
