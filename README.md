@@ -4,3 +4,4 @@ La api tiene como proposito llevar un control de las inversiones, gastos e ingre
 
 ## Tecnologías
 - Nodejs (Framework express)
+- Mongodb
