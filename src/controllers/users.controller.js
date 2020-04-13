@@ -9,18 +9,18 @@ userCtrl.getUsers = async (req, res) => {
     res.json(users);
 }
 
-userCtrl.createUser = async (req, res) => {
-    const {username} = req.body;
-    const newUser = new User({username});
-    await newUser.save( function(error)  {
-        if(error){
-            res.json({"error":"Error al intentar guardar el User"});
-         }else{ 
-            res.json({"message": "User created"});
-         }
-    });
+// userCtrl.createUser = async (req, res) => {
+//     const {username} = req.body;
+//     const newUser = new User({username});
+//     await newUser.save( function(error)  {
+//         if(error){
+//             res.json({"error":"Error al intentar guardar el User"});
+//          }else{ 
+//             res.json({"message": "User created"});
+//          }
+//     });
     
-}
+// }
 
 userCtrl.deleteUser = async (req, res) => {
     await User.findByIdAndDelete(req.params.id);
